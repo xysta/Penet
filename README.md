@@ -10,8 +10,14 @@ var penet = new Penet();
 penet.static(__dirname + "/static");
 penet.start(3003);
 ```
+
+#### app start
+
+  > penet.start(port)
+
+
 #### static file config
-  static(path) 
+  penet.static(path) 
   
   As e.g
   > the dir in project root dir
