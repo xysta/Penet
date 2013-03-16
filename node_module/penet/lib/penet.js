@@ -1,12 +1,24 @@
-var http = require("http");
-var fs   = require("fs");
+var http = require("http"),
+    fs   = require("fs"),
+    ModelCollection = require("./model").ModelCollection,
+    util = require("./util"),
+    url  = require("url"),
+    queryString = require("querystring"),
+    core = require("./core"),
+    doRequest = core.doRequest;
+
+
 
 var Penet  = function(options){
     this.VERSION = "0.0.1";
 
     this.encoding = "UTF-8";
 
-    this.models = [];
+    this.models = new ModelCollection();
+
+    this.addModel = function(method,model){
+        this.models[method].push(model);
+    };
 
     this.static = function(dir){
         this.static_dir = dir;
@@ -16,35 +28,30 @@ var Penet  = function(options){
 Penet.prototype.start =  function(port){
     var me = this;
     var server = http.createServer(function(requst, response){
-        var pamas = {};
-
-        ({
-            "GET": function(){
-
+        doRequest(requst,function(params){
+            var method = requst.method;
+            var modelName = params.model;
+            var fn = params.fn;
+            this.models[method][params.model][params.fn]();
+            try{
+                fs.readFile(me.static_dir + url.parse(requst.url).pathname, {
+                    encoding: me.encoding
+                },function(err, data){
+                    try{
+                        response.write(new Buffer(data).toString(me.encoding));
+                        response.end();
+                    }catch (err){
+                        response.writeHead(404,"text/application");
+                        response.write(JSON.stringify(url.parse(requst.url)));
+                        response.end();
+                    }
+                });
+            }catch (err){
+                response.writeHead(404,"text/application");
+                response.write(JSON.stringify(url.parse(requst.url)));
+                response.end();
             }
-        })[requst.method]()
-
-        try{
-            fs.readFile(me.static_dir + requst.url, {
-                encoding: me.encoding
-            },function(err, data){
-                try{
-                    response.write(new Buffer(data).toString(me.encoding));
-                    response.end();
-                }catch (err){
-                    response.writeHead(404,"text/application");
-                    response.write(requst.method + "\t" + requst.url);
-                    response.end();
-                }
-            });
-        }catch (err){
-            response.writeHead(404,"text/application");
-            response.write(({
-                code: 404,
-                message: "no data you need!"
-            }).toString());
-            response.end();
-        }
+        });
     });
     if(!port) port = 3000;
     server.listen(port);

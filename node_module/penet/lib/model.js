@@ -1,7 +1,28 @@
-/**
- * Created with JetBrains WebStorm.
- * User: not
- * Date: 13-3-16
- * Time: 下午8:17
- * To change this template use File | Settings | File Templates.
- */
+var ModelCollection = function(){
+
+    this["HEAD"] = {};
+    this["GET"] = {};
+    this["POST"] = {};
+    this["PUT"] = {};
+    this["DELETE"] = {};
+
+
+
+}
+
+var Model = function(obj){
+
+    this.attrs = {};
+
+    this.toJSON = function(){
+        return JSON.stringify(this.attrs);
+    }
+}
+
+Model.extend = function(){
+    return;
+}
+
+module.exports = {
+    ModelCollection: ModelCollection
+}

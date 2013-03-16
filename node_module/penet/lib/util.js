@@ -1,6 +1,19 @@
-var underscore = require("./underscore");
+var underscore = require("./underscore"),
+    url        = require("url");
 
-util = {}
+util = {};
+
+util.doRequest = {
+    params: function(request){
+        try{
+            console.log(url.parse(request.url).query);
+            console.log(JSON.notify(url.parse(request.url).query));
+            return url.parse(request.url).query;
+        }catch (err){
+            return err;
+        }
+    }
+}
 
 util.extend = function(target, src, skipArr){
     var skipArr = typeof skipArr == "Array" ? skipArr : [];
