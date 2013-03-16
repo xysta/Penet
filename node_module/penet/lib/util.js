@@ -1,6 +1,10 @@
+var underscore = require("./underscore");
+
 util = {}
 
-util.extend = function(target, src){
-    if(typeof target != "Object") throw new TypeError("Target is not an object");
-    src.ke
-}
+util.extend = function(target, src, skipArr){
+    var skipArr = typeof skipArr == "Array" ? skipArr : [];
+    for(k in src){
+        if (! _.contains(skipArr, k)) target[k] = src[k];
+    }
+};

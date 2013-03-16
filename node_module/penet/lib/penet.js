@@ -15,7 +15,7 @@ var Penet  = function(options){
             response.writeHead(200, {"Content-Type": "text/html"});
             console.log(me.static_dir + requst.url);
             fs.readFile(me.static_dir + requst.url, {
-                encoding: "UTF-8"
+                encoding: me.encoding || "UTF-8"
             },function(err, data){
                 response.write(new Buffer(data).toString("UTF-8"));
                 response.end();
