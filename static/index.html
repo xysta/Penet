@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Node</title>
+    <link rel="stylesheet" href="css/app.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/app.js"></script>
 </head>
 <body>
@@ -10,5 +12,23 @@
         <input type="text" name="key">
         <input type="submit">
     </form>
+    <br>
+    <button id="post">post</button>
+
+<pre>
+    $("#post").click(function(){
+        $.post("/",{
+            model: "user",
+            fn: "save",
+            "message({[)]}": {
+                result: true,
+                code: 200,
+                message: "[信息]"
+            }
+        },function(data){
+            $("body").append(data);
+        })
+    });
+</pre>
 </body>
 </html>

@@ -24,5 +24,6 @@ Model.extend = function(){
 }
 
 module.exports = {
+    Model:Model,
     ModelCollection: ModelCollection
 }

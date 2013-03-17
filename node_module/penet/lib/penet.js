@@ -16,8 +16,8 @@ var Penet  = function(options){
 
     this.models = new ModelCollection();
 
-    this.addModel = function(method,model){
-        this.models[method].push(model);
+    this.addModel = function(method, modelName ,model){
+        this.models[method][modelName] = model;
     };
 
     this.static = function(dir){
@@ -29,10 +29,6 @@ Penet.prototype.start =  function(port){
     var me = this;
     var server = http.createServer(function(requst, response){
         doRequest(requst,function(params){
-            var method = requst.method;
-            var modelName = params.model;
-            var fn = params.fn;
-            this.models[method][params.model][params.fn]();
             try{
                 fs.readFile(me.static_dir + url.parse(requst.url).pathname, {
                     encoding: me.encoding
