@@ -1,8 +1,8 @@
 $(document).ready(function(){
     $("#post").click(function(){
         $.get("/",{
-            model: "user",
-            fn: "save",
+            handle: "user",
+            method: "save",
             message: {
                 result: true,
                 code: 200,
