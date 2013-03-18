@@ -16,12 +16,13 @@ var Model = function(obj){
 
     this.toJSON = function(){
         return JSON.stringify(this.attrs);
+    };
+
+    this.render = function(){
+        return this.toJSON();
     }
 }
 
-Model.extend = function(){
-    return;
-}
 
 module.exports = {
     Model:Model,
