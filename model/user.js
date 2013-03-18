@@ -1,5 +1,7 @@
-var Model = require('../node_module/penet');
-
-module.exports = new Model({
-
-});
+module.exports = {
+    save: function(){
+        this.attrs = {
+            name: "test"
+        }
+    }
+};

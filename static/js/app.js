@@ -6,10 +6,10 @@ $(document).ready(function(){
             message: {
                 result: true,
                 code: 200,
-                message: {
+                "message": {
                     result: true,
-                        code: 200,
-                        message: "[信息]"
+                    code: 200,
+                    message: "[信息]"
                 }
             }
         },function(data){

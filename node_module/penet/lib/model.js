@@ -6,8 +6,6 @@ var ModelCollection = function(){
     this["PUT"] = {};
     this["DELETE"] = {};
 
-
-
 }
 
 var Model = function(obj){
@@ -16,12 +14,18 @@ var Model = function(obj){
 
     this.toJSON = function(){
         return JSON.stringify(this.attrs);
+    };
+
+    this.render = obj.render || function(fn){
+        if(fn) fn();
+        return this.attrs;
+    }
+
+    for(k in obj){
+        this[k]  = obj[k];
     }
 }
 
-Model.extend = function(){
-    return;
-}
 
 module.exports = {
     Model:Model,
