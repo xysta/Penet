@@ -10,9 +10,9 @@ var url = require("url");
  *    fn: 'save',
  *    'message[result]': 'true',
  *    'message[code]': '200',
- *    'message[messag][e][result]': 'true',
- *    'message[messag][e][code]': '200',
- *    'message[messag][e][message]': '[信息]' }
+ *    'message[message][result]': 'true',
+ *    'message[message][code]': '200',
+ *    'message[message][message]': '[信息]' }
  *
  *  to data as style
  *  {
@@ -43,8 +43,8 @@ var data2JSON = function(requestData){
         }
     }
     for(key in requestData){
-        var keys = key.split("[");
-        for(i = 0; i < keys.length; i ++) keys[i] = keys[i].split("]")[0];
+        var keys = key.split(/\[|\]\[|\]/g);
+        if(keys[keys.length - 1] == "") keys = keys.slice(0,keys.length - 1);
         params[keys[0]] = loop(keys, requestData[key], 0, params[keys[0]]);
     }
     return params;
@@ -54,9 +54,6 @@ module.exports = {
     doRequest: function(request, end){
         request.setEncoding("utf8");
         if (request.method = "GET"){
-
-            console.log(queryString.parse(url.parse(request.url).query));
-            console.log(data2JSON(queryString.parse(url.parse(request.url).query)));
             end(data2JSON(queryString.parse(url.parse(request.url).query)));
         } else if(request.method = "POST"){
             var params = {};

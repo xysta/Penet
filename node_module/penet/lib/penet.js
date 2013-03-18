@@ -1,10 +1,11 @@
 var http = require("http"),
     fs   = require("fs"),
-    ModelCollection = require("./model").ModelCollection,
     util = require("./util"),
     url  = require("url"),
     queryString = require("querystring"),
     core = require("./core"),
+    Model = require('./model').Model,
+    ModelCollection = require("./model").ModelCollection,
     doRequest = core.doRequest;
 
 
@@ -29,6 +30,16 @@ Penet.prototype.start =  function(port){
     var me = this;
     var server = http.createServer(function(requst, response){
         doRequest(requst,function(params){
+
+            /**
+             *
+             */
+
+            var model = new Model(me.models[requst.method][params.model]);
+            model[params.fn]();
+            model.render();
+            console.log(model);
+
             try{
                 fs.readFile(me.static_dir + url.parse(requst.url).pathname, {
                     encoding: me.encoding
