@@ -1,7 +1,7 @@
 Penet
 =====
 
-node.js - Penet
+node.js - [Penet](https://github.com/synee/Penet/tree/master/node_module/penet)
 
 ### Get Start
 ```javascript
