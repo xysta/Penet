@@ -3,5 +3,6 @@ module.exports = {
         this.attrs = {
             name: "test"
         }
+        this.render();
     }
 };

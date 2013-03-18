@@ -1,5 +1,5 @@
 
-var Penet = require("./node_module/penet");
+var Penet = require("penet");
 var penet = new Penet();
 
 penet.addModel("GET", "user", require('./model/user'));
