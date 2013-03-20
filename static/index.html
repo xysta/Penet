@@ -10,10 +10,26 @@
 </head>
 <body>
     <div class="wel-from">
-
+        <input type="text" class="username">
+        <button class="btn btn-primary">submit</button>
     </div>
     <div class="wel-msg">
         <span> Hello: </span><span class="user"></span>
     </div>
+    <script>
+        $(".btn-primary").click(function(){
+            $.post("/",{
+                handle: "user",
+                method: "save",
+                message: {
+                    username: $(".username").val()
+                }
+            },function(data){
+                if(data.result){
+                    $(".user").html(data.message.username);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

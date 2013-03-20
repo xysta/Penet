@@ -1,7 +1,11 @@
 module.exports = {
     save: function(){
-        this.attrs = {
-            name: "test"
+        var me = this;
+        me.attrs = {
+            result: true,
+            message: {
+                username: me.incomingMessage.params.message.username
+            }
         }
         this.render();
     }
