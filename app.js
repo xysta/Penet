@@ -5,5 +5,7 @@ var penet = new Penet();
 penet.addBoot("/",require("./boot"));
 penet.addHandle("GET", "user", require('./handle/user'));
 
-penet.static(__dirname + "/static");
+penet.static({
+    static_dir: __dirname + "/static"
+});
 penet.start(3003);
