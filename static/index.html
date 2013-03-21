@@ -25,6 +25,7 @@
                     username: $(".username").val()
                 }
             },function(data){
+                console.log(data);
                 if(data.result){
                     $(".user").html(data.message.username);
                 }

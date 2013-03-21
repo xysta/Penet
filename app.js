@@ -6,7 +6,7 @@ penet.addBoot("/",require("./boot"));
 
 penet.addHandle("user", require('./handle/user'));
 
-penet.static({
+penet.setEnv({
     static_dir: __dirname + "/static"
 });
 penet.start(3003);
